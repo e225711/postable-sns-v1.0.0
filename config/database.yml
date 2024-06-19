@@ -1,0 +1,22 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8mb4
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= ENV['MYSQL_USERNAME'] || 'root' %>
+  password: <%= ENV['MYSQL_PASSWORD'] || '' %>
+  socket: /tmp/mysql.sock
+
+development:
+  <<: *default
+  database: sns_app_development
+
+test:
+  <<: *default
+  database: sns_app_test
+
+production:
+  <<: *default
+  database: sns_app_production
+  username: <%= ENV['SNS_APP_DATABASE_USERNAME'] || 'sns_app' %>
+  password: <%= ENV['SNS_APP_DATABASE_PASSWORD'] %>
+  host: <%= ENV['SNS_APP_DATABASE_HOST'] || 'localhost' %>
